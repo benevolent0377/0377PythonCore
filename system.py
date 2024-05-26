@@ -5,13 +5,19 @@ import IO, extra, web, log
 
 
 # a file to initialize the files and services needed to run the program
-def init():
+def init(program):
     global logID
     global sysDT
     logID = extra.keyGen(6)
     sysDT = getDT()
 
-    fileSetup()
+    if program == 1:
+        wandererFileSetup()
+    elif program == 2:
+        OAFileSetup()
+
+    else:
+        quitKill()
 
     if not isOnline():
         quitKill()
@@ -79,6 +85,39 @@ def wandererFileSetup():
             log.log("Download dir creation failed.", "err")
 
     sendLogs(configFileL)
+
+
+def OAFileSetup():
+    OS = getOS()
+    slash = getSlash()
+
+    homePath = getHomePath()
+    sysPath = getCWD()
+    configPath = getConfigPath()
+    tmpPath = getTmpPath()
+    logPath = getLogPath()
+
+    configFileL = f"{configPath}local.yaml"
+
+    if not os.path.isfile(configFileL):
+        if IO.mkFile(configFileL):
+            elements = ["OS", "CWD", "Home-Directory", "Program-SerialNo", "Version"]
+            values = [OS, sysPath, homePath, extra.keyGen(24), "N/A"]
+            IO.yamlWrite(values, elements, configFileL, True)
+        else:
+            IO.say("Failed to create local configuration file.")
+            log.log("local.config creation failed.", "err")
+            quitKill()
+
+    log.init(configFileL, logPath)
+
+    if not os.path.isdir(tmpPath):
+        if not IO.mkDir(tmpPath):
+            IO.say("Failed to create temporary directory.")
+            log.log("tmp dir creation failed.", "err")
+            quitKill()
+
+
 
 def sendLogs(configFileL):
 
@@ -163,8 +202,9 @@ def getDataPath():
 def getDownloadPath():
     return f"{getCWD()}{getSlash()}downloads{getSlash()}"
 
-def getDownloadPath():
-    return f"{getCWD()}{getSlash()}downloads{getSlash()}"
+def getAssetsPath():
+    return f"{getCWD()}{getSlash()}assets{getSlash()}"
+
 
 def dumpHead():
     extra.printBanner()
