@@ -3,7 +3,7 @@ from core import IO, syntax, helper, log, system
 
 # a file to parse all commands
 
-def parse(values):
+def parse(values, req):
     cmdData = IO.yamlRead(f'{system.getConfigPath()}parent.yaml', 'cmdList')
     cmds = []
     loopVectorB = 0
@@ -37,10 +37,10 @@ def parse(values):
 
         loopVectorB += 1
 
-    read(cmds)
+    read(cmds, req)
 
 
-def read(pData, mode=0):
+def read(pData, req, mode=0, chk="", regexStr="", isLoop=False):
     varsIn = {}
 
     if mode == 0:
@@ -80,8 +80,15 @@ def read(pData, mode=0):
                     log.log("invalid port", "err")
 
     else:
-        if not syntax.adv(varsIn["host"], regex=True, regexStr=r"(http(s)?:\/\/)?([a-z0-9]){3,256}\.([a-z0-9]){2,6}$"):
-            IO.say(f"'{varsIn['host']} is not a valid link.'")
+        if isLoop:
+            count = 0
+            while len(chk) > count:
+                if not syntax.adv(varsIn[chk[count]], regex=True, regexStr=regexStr[count]):
+                    IO.say(f"'{varsIn[chk[count]]} is not valid.'")
+                count += 1
+        else:
+            if not syntax.adv(varsIn[chk], regex=True, regexStr=regexStr):
+                IO.say(f"'{varsIn[chk]} is not valid.'")
 
         varsIn.update({"stor": syntax.adv(varsIn["stor"], "dir")})
 
