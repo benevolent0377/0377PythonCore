@@ -18,7 +18,7 @@ def init():
     #IO.say("--- NOTICE Internet Capabilities Currently Disabled... NOTICE ---\n")
 
 
-def fileSetup():
+def wandererFileSetup():
     OS = getOS()
     slash = getSlash()
 
@@ -159,6 +159,9 @@ def getLogInfo():
 
 def getDataPath():
     return f"{getCWD()}{getSlash()}data{getSlash()}"
+
+def getDownloadPath():
+    return f"{getCWD()}{getSlash()}downloads{getSlash()}"
 
 def getDownloadPath():
     return f"{getCWD()}{getSlash()}downloads{getSlash()}"

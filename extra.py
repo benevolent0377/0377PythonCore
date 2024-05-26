@@ -12,7 +12,7 @@ def keyGen(length=16, seed=hash(random)):
     return key
 
 
-def printBanner():
+def wandererBanner():
     print(
         '  __      __            _                 \n'
         '  \\ \\    / /_ _ _ _  __| |___ _ _ ___ _ _\n'
