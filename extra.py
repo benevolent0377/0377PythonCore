@@ -1,6 +1,6 @@
 import random
 import string
-import log
+from core import log
 
 
 # a file for misc commands

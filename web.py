@@ -1,6 +1,6 @@
 import socket
 import ftplib
-import IO, log
+from core import IO, log
 
 # a file for all the HTTP and HTTPS functions
 hostName = "calithos.in"

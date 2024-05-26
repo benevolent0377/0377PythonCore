@@ -1,6 +1,6 @@
 # a file of local inout functions making the process easy and keeping the main file decluttered
 import os.path
-import syntax, log
+from core import syntax, log
 import yaml
 
 

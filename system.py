@@ -1,133 +1,44 @@
-import platform
-import os
 import datetime
-import IO, extra, web, log
+import os
+import platform
+
+from core import IO, extra, log, web, syntax
 
 
 # a file to initialize the files and services needed to run the program
-def init(program):
+def init(directoriesReq, filesReq, onlineReq=False):
     global logID
     global sysDT
     logID = extra.keyGen(6)
     sysDT = getDT()
 
-    if program == 1:
-        wandererFileSetup()
-    elif program == 2:
-        OAFileSetup()
+    fileSetup(directoriesReq, filesReq)
 
-    else:
-        quitKill()
+    if onlineReq:
+        if not isOnline():
+            quitKill()
+        #IO.say("--- NOTICE Internet Capabilities Currently Disabled... NOTICE ---\n")
 
-    if not isOnline():
-        quitKill()
-    #IO.say("--- NOTICE Internet Capabilities Currently Disabled... NOTICE ---\n")
-
-
-def wandererFileSetup():
-    OS = getOS()
+def fileSetup(directoriesReq, filesReq=""):
     slash = getSlash()
 
-    homePath = getHomePath()
-    sysPath = getCWD()
-    configPath = getConfigPath()
-    tmpPath = getTmpPath()
-    logPath = getLogPath()
-    dataPath = getDataPath()
-    downloadPath = getDownloadPath()
+    for directory in directoriesReq:
+        path = getCWD() + slash + directory + slash
+        if not os.path.isdir(path):
+            if not IO.mkDir(path):
+                IO.say("Failed to create vital directory.")
+                log.log("dir creation failed.", "err")
+                quitKill()
 
-    configFileP = f"{configPath}parent.yaml"
-    configFileL = f"{configPath}local.yaml"
+    if filesReq != "":
+        for file in filesReq:
+            path = getCWD() + slash + file
+            if not os.path.isfile(path):
+                if not IO.mkFile(path):
+                    IO.say("Failed to create vital directory.")
+                    log.log("dir creation failed.", "err")
+                    quitKill()
 
-    if os.path.isdir(configPath):
-
-        if not os.path.isfile(configFileP):
-            open(configFileP, "x")
-
-    else:
-
-        if not IO.mkDir(configPath):
-            print("Failed to make configuration directory.")
-            log.log("Config dir creation failed.", "err")
-            quitKill()
-        else:
-            log.log(configPath, "mkdir")
-            open(configFileP, "x")
-
-    web.fetchFTP(configFileP, "parent.yaml")
-
-    if not os.path.isfile(configFileL):
-        if IO.mkFile(configFileL):
-            elements = ["OS", "CWD", "Home-Directory", "Program-SerialNo", "SendLogs", "Version"]
-            values = [OS, sysPath, homePath, extra.keyGen(24), " ", "1.0.0 Alpha"]
-            IO.yamlWrite(values, elements, configFileL, True)
-        else:
-            IO.say("Failed to create local configuration file.")
-            log.log("local.config creation failed.", "err")
-            quitKill()
-
-    log.init(configFileL, logPath)
-
-    if not os.path.isdir(tmpPath):
-        if not IO.mkDir(tmpPath):
-            IO.say("Failed to create temporary directory.")
-            log.log("tmp dir creation failed.", "err")
-            quitKill()
-
-    if not os.path.isdir(dataPath):
-        if not IO.mkDir(dataPath):
-            IO.say("Failed to create data directory.")
-            log.log("data dir creation failed.", "err")
-
-    if not os.path.isdir(downloadPath):
-        if not IO.mkDir(downloadPath):
-            IO.say("Failed to create downloads directory.")
-            log.log("Download dir creation failed.", "err")
-
-    sendLogs(configFileL)
-
-
-def OAFileSetup():
-    OS = getOS()
-    slash = getSlash()
-
-    homePath = getHomePath()
-    sysPath = getCWD()
-    configPath = getConfigPath()
-    tmpPath = getTmpPath()
-    logPath = getLogPath()
-
-    configFileL = f"{configPath}local.yaml"
-
-    if not os.path.isfile(configFileL):
-        if IO.mkFile(configFileL):
-            elements = ["OS", "CWD", "Home-Directory", "Program-SerialNo", "Version"]
-            values = [OS, sysPath, homePath, extra.keyGen(24), "N/A"]
-            IO.yamlWrite(values, elements, configFileL, True)
-        else:
-            IO.say("Failed to create local configuration file.")
-            log.log("local.config creation failed.", "err")
-            quitKill()
-
-    log.init(configFileL, logPath)
-
-    if not os.path.isdir(tmpPath):
-        if not IO.mkDir(tmpPath):
-            IO.say("Failed to create temporary directory.")
-            log.log("tmp dir creation failed.", "err")
-            quitKill()
-
-
-
-def sendLogs(configFileL):
-
-    if IO.yamlRead(configFileL, "SendLogs").__eq__(' '):
-        response = IO.say("Would you like to opt into uploading log data? It IS anonymous. DEFAULT is no. (yes/no)", True, syntaxChk=True, synType="internal")
-        if response.__eq__("yes") or response.__eq__("y"):
-            IO.yamlWrite("True", "SendLogs", configFileL)
-        else:
-            IO.yamlWrite("False", "SendLogs", configFileL)
-        IO.say("Thank you for using Wanderer.py!")
 
 # check for internet condition
 def isOnline():
