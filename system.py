@@ -68,7 +68,7 @@ def getHomePath():
 
 
 def getCWD():
-    return os.getcwd() + getSlash()
+    return os.getcwd()
 
 
 def getConfigPath():
