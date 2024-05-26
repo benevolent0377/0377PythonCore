@@ -1,6 +1,6 @@
 import random
 import string
-from caliCore.core import log
+import log
 
 
 # a file for misc commands

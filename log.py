@@ -1,4 +1,4 @@
-from caliCore.core import IO, system
+import IO, system
 import os
 
 data = []

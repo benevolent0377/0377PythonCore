@@ -1,4 +1,4 @@
-from caliCore.core import IO, system
+import IO, system
 
 
 # a file to handle all help requests
