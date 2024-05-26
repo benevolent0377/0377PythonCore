@@ -58,7 +58,8 @@ def read(pData, req, mode=0, chk="", regexStr="", isLoop=False):
             # add custom syntax or regex checks for each of the command's arguments before passing them, they have only been stripped and lowercased for internal processing ease
             for item in req:
                 if not varsIn.__contains__(item):
-                    error.missingArgs(item)
+                    print()
+                    #error.missingArgs(item)
 
     else:
         if isLoop:

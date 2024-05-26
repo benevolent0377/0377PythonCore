@@ -122,3 +122,6 @@ def quitKill(preserve=False):
         clearCache()
     log.log("", "quit")
     exit()
+
+def dumpHead():
+    IO.say(['Created by: Calithos4136', f'Version: {IO.yamlRead(f"{getConfigPath()}local.yaml", "Version")}', f'SessionID: {logID}', '===========================================\n\n'], isLoop=True)
