@@ -2,7 +2,7 @@ import datetime
 import os
 import platform
 
-from core import IO, extra, log, web, syntax
+from . import IO, extra, log, web, syntax
 
 
 # a file to initialize the files and services needed to run the program

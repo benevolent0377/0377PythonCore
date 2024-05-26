@@ -1,4 +1,4 @@
-from core import IO, system
+from . import IO, system
 
 
 # a file to handle all help requests
