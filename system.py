@@ -35,7 +35,7 @@ def fileSetup(directoriesReq, filesReq=""):
             path = getCWD() + slash + file
             if not os.path.isfile(path):
                 if not IO.mkFile(path):
-                    IO.say("Failed to create vital directory.")
+                    IO.say("Failed to create vital files.")
                     log.log("dir creation failed.", "err")
                     quitKill()
 
@@ -102,7 +102,7 @@ def clearCache():
 
 
 def getLogInfo():
-    logName = f"wanderer_{sysDT}_{logID}.log.txt"
+    logName = f"{sysDT}_{logID}.log.txt"
     logFile = f"{getLogPath()}{logName}"
 
     return [logID, logName, logFile, sysDT]
@@ -115,10 +115,6 @@ def getDownloadPath():
 
 def getAssetsPath():
     return f"{getCWD()}{getSlash()}assets{getSlash()}"
-
-
-def dumpHead():
-    IO.say(['Created by: Calithos4136', f'Version: {IO.yamlRead(f"{getConfigPath()}local.yaml", "Version")}', f'SessionID: {logID}', '===========================================\n\n'], isLoop=True)
 
 # the quit function
 def quitKill(preserve=False):
