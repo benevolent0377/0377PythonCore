@@ -1,5 +1,5 @@
-from . import IO, syntax, helper, log, system
-
+from core import IO, syntax, helper, log, system
+from lib import error
 
 # a file to parse all commands
 
@@ -57,27 +57,9 @@ def read(pData, req, mode=0, chk="", regexStr="", isLoop=False):
             helper.request(varsIn.__getitem__("help"))
         else:
             # add custom syntax or regex checks for each of the command's arguments before passing them, they have only been stripped and lowercased for internal processing ease
-            if not varsIn.__contains__("host"):
-                IO.say("You must define a hostname with '-H' or '--host'.")
-                log.log("No hostname defined.", "err")
-            if not varsIn.__contains__("attributes"):
-                IO.say(
-                    "You must provide attributes: links, tags, pages, etc... Define these with '-A' or '--attributes'.")
-                log.log("No attributes provided.", "err")
-            if not varsIn.__contains__("stor"):
-                IO.say(f"Storing files in {system.getDownloadPath()}")
-            if not varsIn.__contains__("timeout"):
-                IO.say("Default timeout is 45 seconds. Use '-t' or '--timeout' to alter.")
-                varsIn.update({"timeout": "45"})
-
-            if not syntax.adv(varsIn["timeout"], regex=True, regexStr=r"^([0-9]){1,3}$"):
-                IO.say("Invalid timeout.")
-                varsIn.update({"timeout": "45"})
-
-            if varsIn.__contains__("port"):
-                if not syntax.adv(varsIn["port"], regex=True, regexStr=r"^([0-9]){2,5}$"):
-                    IO.say(f"Invalid port: {varsIn['port']}")
-                    log.log("invalid port", "err")
+            for item in req:
+                if not varsIn.__contains__(item):
+                    error.missingArgs(item)
 
     else:
         if isLoop:
