@@ -1,2 +1,1 @@
 PyYAML~=6.0.1
-PySimpleGUI~=5.0.6
