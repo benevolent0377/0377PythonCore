@@ -17,7 +17,8 @@ def init(directoriesReq, filesReq, onlineReq=False):
     if onlineReq:
         if not isOnline():
             quitKill()
-        #IO.say("--- NOTICE Internet Capabilities Currently Disabled... NOTICE ---\n")
+        # IO.say("--- NOTICE Internet Capabilities Currently Disabled... NOTICE ---\n")
+
 
 def fileSetup(directoriesReq, filesReq=""):
     slash = getSlash()
