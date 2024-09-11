@@ -2,6 +2,7 @@
 import os.path
 from . import syntax, log
 import yaml
+import json
 
 
 # simply prints the string output or creates a query in the terminal, also returns the inputted values
@@ -109,10 +110,61 @@ def yamlRead(File, element, update=False, elements=1):
                 return data[element]
 
 
+# write into an element(s) of a json file
+def jsonWrite(value, element, File, isLoop=False):
+    # blah blah blah
+    data = jsonRead(File, element, True)
+    if data is None:
+        data = {}
+        if isLoop and len(element) == len(value):
+            count = 0
+            while len(element) > count:
+                data.update({element[count]: value[count]})
+                count += 1
+
+        else:
+            data.update({element: value})
+    else:
+        if isLoop:
+            count = 0
+            while len(element) > count:
+                data.update({element[count]: value[count]})
+                count += 1
+
+        else:
+            data.update({element: value})
+
+    with open(File, "w") as file:
+        log.log(element, "wfile", File)
+        json.dump(data, file)
+
+
+# read from a json file
+def jsonRead(File, element, update=False, elements=1):
+    # more blah
+    with open(File, "r") as file:
+        data = yaml.safe_load(file)
+        log.log(element, "rfile", File)
+        if data is None:
+            return None
+
+        else:
+            if update:
+                count = 0
+                while elements > count:
+                    data.update({element: data[element]})
+                    count += 1
+
+                return data
+            else:
+                return data[element]
+
+
 def mkFile(File):
     with open(File, "x") as file:
         log.log(File, "mkfile")
         return os.path.isfile(File)
+
 
 def mkDir(dir):
     os.mkdir(dir)
