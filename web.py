@@ -1,6 +1,11 @@
 import socket
 import ftplib
-from . import log, IO
+from . import IO, log
+
+# a file for all the HTTP and HTTPS functions
+hostName = "calithos.in"
+usr = "wanderer@calithos.in"
+pwd = "USYuQPD41"
 
 def ping(host="8.8.8.8", port=53, timeout=10):
     """
@@ -16,7 +21,7 @@ def ping(host="8.8.8.8", port=53, timeout=10):
         log.log(ex, "err")
         return False
 
-def fetchFTP(hostName, usr, pwd, localFile, remoteFile, timeout=45):
+def fetchFTP(localFile, remoteFile, timeout=45):
     IO.say("Establishing FTP connection...\n")
     with ftplib.FTP(hostName, timeout=timeout) as ftp:
         ftp.login(user=usr, passwd=pwd)
@@ -28,7 +33,7 @@ def fetchFTP(hostName, usr, pwd, localFile, remoteFile, timeout=45):
             IO.say("Done.")
 
 
-def postFTP(hostName, usr, pwd, localFile, remoteFile, timeout=45, isTmp=False, isYaml=False, keyword=""):
+def postFTP(localFile, remoteFile, timeout=45, isTmp=False, isYaml=False, keyword=""):
     with ftplib.FTP(hostName, timeout=timeout) as ftp:
         ftp.login(user=usr, passwd=pwd)
         log.log(hostName, "ftpconnect", usr)
@@ -56,3 +61,7 @@ def postFTP(hostName, usr, pwd, localFile, remoteFile, timeout=45, isTmp=False, 
 
                 ftp.storlines(f"STOR {remoteFile}", file)
                 log.log(remoteFile, "ftpD", hostName)
+
+def HTTPget(host, destination, timeout=45):
+    # requests.get() <-- incomplete command + filler code
+    print()
