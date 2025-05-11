@@ -1,7 +1,7 @@
 # this is a core updater file to update the core files through python, and will be builtin to all programs
 # I no longer wanted to make installers for the core files, so the program will build it automatically through this file
 
-import requests, platform, os, hashlib
+import requests, platform, os, hashlib, sys
 
 
 def selfUpdate():
