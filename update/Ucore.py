@@ -18,7 +18,7 @@ def selfUpdate():
 
     for item in updaterData:
 
-        sortedContent.update({item['name']: item['download_url'})
+        sortedContent.update({item['name']: item['download_url']})
 
     for fileName, URL in sortedContent.items():
         outputArray = fileRead(corePATH + fileName)
