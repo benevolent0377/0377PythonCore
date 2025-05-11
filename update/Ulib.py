@@ -55,7 +55,7 @@ def update(projName):
 def get(projName):
 
     if update(projName):
-        IO.say("Program files have been updated. Please restart the program.")
-        system.quitKill()
+        IO.say("Program libraries have been updated. Restarting the program...")
+        os.execv(sys.executable, ['python'] + sys.argv)
 
 
