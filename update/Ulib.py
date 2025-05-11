@@ -1,7 +1,7 @@
 # this file will update the source code of the whole project (not including this file)
 # this file will most likely be small, only passing variables to the core function that is more specified to update the source files
 
-import requests, hashlib
+import requests, hashlib, sys
 from source.core import IO, system, web
 
 def update(projName):
