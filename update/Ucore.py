@@ -3,8 +3,6 @@
 
 import requests, platform, os, hashlib, sys
 
-# test comment 
-
 def selfUpdate():
 
     updaterURL = "https://api.github.com/repositories/806174201/contents/update"
