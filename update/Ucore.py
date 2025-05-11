@@ -141,5 +141,5 @@ def fileRead(File):
 def get():
     print("Checking for updates.")
     if selfUpdate() or update():
-        print("Program files have been updated. The program is restarting.")
-        os.execv(sys.executable, ['python'] + sys.argv)
+        print("Program files have been updated. Please restart the program.")
+        exit()

@@ -44,7 +44,6 @@ def update(projName):
         remotemd5 = hashlib.md5(requests.get(URL).content).hexdigest()
         
         if localmd5 != remotemd5:
-
             IO.rmFile(localPATH + fileName)
             IO.mkFile(localPATH + fileName)
             IO.fileWrite(requests.get(URL).text, localPATH + fileName, overwrite=True)
@@ -55,7 +54,7 @@ def update(projName):
 def get(projName):
 
     if update(projName):
-        IO.say("Program libraries have been updated. Restarting the program...")
-        os.execv(sys.executable, ['python'] + sys.argv)
+        IO.say("Program files have been updated. Please restart the program.")
+        system.quitKill()
 
 
