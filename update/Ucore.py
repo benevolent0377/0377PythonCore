@@ -3,6 +3,7 @@
 
 import requests, platform, os, hashlib, sys
 
+# test comment 
 
 def selfUpdate():
 
