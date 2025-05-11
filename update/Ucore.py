@@ -58,14 +58,14 @@ def update():
 
     altered = False
 
-    if fileRead(corePATH + fileName):
-	   
-	   outputArray = IO.fileRead(localPATH + fileName)
-           outputString = ""
-           
-	   for line in outputArray:
+    for fileName, URL in sortedContent.items():
+
+        if fileRead(corePATH + fileName)
+           outputArray = fileRead(corePath + fileName)
+	   outputString = ""
+           for line in outputArray:
               outputString += line
-    else:
+	else:
 	   outputString = ""
 
         outputString = outputString.encode()
