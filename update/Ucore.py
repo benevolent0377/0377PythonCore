@@ -23,7 +23,7 @@ def selfUpdate():
         
         if fileRead(corePATH + fileName):
 
-            outputArray = IO.fileRead(corePATH + fileName)
+            outputArray = fileRead(corePATH + fileName)
             outputString = ""
             
             for line in outputArray:
