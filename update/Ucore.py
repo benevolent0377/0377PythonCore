@@ -20,11 +20,15 @@ def selfUpdate():
         sortedContent.update({item['name']: item['download_url']})
 
     for fileName, URL in sortedContent.items():
-        outputArray = fileRead(corePATH + fileName)
-        outputString = ""
         
-        for line in outputArray:
-            outputString += line
+	if fileRead(corePATH + fileName):
+	   
+	   outputArray = IO.fileRead(corePATH + fileName)
+           outputString = ""
+           for line in outputArray:
+              outputString += line
+	else:
+	   outputString = ""
 
         outputString = outputString.encode()
 
@@ -54,12 +58,15 @@ def update():
 
     altered = False
 
-    for fileName, URL in sortedContent.items():
-
-        outputArray = fileRead(corePATH + fileName)
-        outputString = ""
-        for line in outputArray:
-            outputString += line
+    if fileRead(corePATH + fileName):
+	   
+	   outputArray = IO.fileRead(localPATH + fileName)
+           outputString = ""
+           
+	   for line in outputArray:
+              outputString += line
+    else:
+	   outputString = ""
 
         outputString = outputString.encode()
 

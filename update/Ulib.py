@@ -33,11 +33,14 @@ def update(projName):
     altered = False
     for fileName, URL in projectDataParsed.items():
 
-        outputArray = IO.fileRead(localPATH + fileName)
-        outputString = ""
-        for line in outputArray:
-            outputString += line
-
+        if IO.fileRead(localPATH + fileName):
+	   
+	   outputArray = IO.fileRead(localPATH + fileName)
+           outputString = ""
+           for line in outputArray:
+              outputString += line
+	else:
+	   outputString = ""
         outputString = outputString.encode()
 
         localmd5 = hashlib.md5(outputString).hexdigest()
