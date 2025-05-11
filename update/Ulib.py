@@ -35,12 +35,13 @@ def update(projName):
 
         if IO.fileRead(localPATH + fileName):
 	   
-	   outputArray = IO.fileRead(localPATH + fileName)
-           outputString = ""
-           for line in outputArray:
-              outputString += line
-	else:
-	   outputString = ""
+	        outputArray = IO.fileRead(localPATH + fileName)
+            outputString = ""
+            for line in outputArray:
+                outputString += line
+	    else:
+	        outputString = ""
+        
         outputString = outputString.encode()
 
         localmd5 = hashlib.md5(outputString).hexdigest()
