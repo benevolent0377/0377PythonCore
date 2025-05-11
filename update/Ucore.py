@@ -21,14 +21,15 @@ def selfUpdate():
 
     for fileName, URL in sortedContent.items():
         
-	    if fileRead(corePATH + fileName):
-	   
-	        outputArray = IO.fileRead(corePATH + fileName)
+        if fileRead(corePATH + fileName):
+
+            outputArray = IO.fileRead(corePATH + fileName)
             outputString = ""
+            
             for line in outputArray:
                 outputString += line
-	    else:
-	        outputString = ""
+        else:
+            outputString = ""
 
         outputString = outputString.encode()
 
@@ -62,11 +63,11 @@ def update():
 
         if fileRead(corePATH + fileName)
             outputArray = fileRead(corePath + fileName)
-	        outputString = ""
+            outputString = ""
             for line in outputArray:
                 outputString += line
-	    else:
-	        outputString = ""
+        else:
+            outputString = ""
 
         outputString = outputString.encode()
 
