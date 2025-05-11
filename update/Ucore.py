@@ -62,7 +62,7 @@ def update():
     for fileName, URL in sortedContent.items():
 
         if fileRead(corePATH + fileName):
-            outputArray = fileRead(corePath + fileName)
+            outputArray = fileRead(corePATH+ fileName)
             outputString = ""
             for line in outputArray:
                 outputString += line
