@@ -35,7 +35,7 @@ def selfUpdate():
         if localmd5 != remotemd5:
             rmFile(corePATH + fileName)
             mkFile(corePATH + fileName)
-            fileWrite(requests.get(URL).text, corePATH + fileName, overwrite=True
+            fileWrite(requests.get(URL).text, corePATH + fileName, overwrite=True)
             altered = True
 
     return altered
