@@ -17,7 +17,8 @@ def init(directoriesReq, filesReq, onlineReq=False):
     if onlineReq:
         if not isOnline():
             quitKill()
-        #IO.say("--- NOTICE Internet Capabilities Currently Disabled... NOTICE ---\n")
+        # IO.say("--- NOTICE Internet Capabilities Currently Disabled... NOTICE ---\n")
+
 
 def fileSetup(directoriesReq, filesReq=""):
     slash = getSlash()
@@ -50,15 +51,17 @@ def isOnline():
 
 
 def getOS():
-    return str(platform.system().lower())
+    return platform.platform().lower()
 
 
 def getSlash():
     OS = getOS()
-    if OS.find("linux") != -1 or OS.find("mac") != -1:
+    if OS.find("linux") or OS.find("mac"):
         return "/"
-    elif OS.find("win") != -1:
+    elif getOS().find("win"):
         return "\\"
+    else:
+        return "/"
 
 
 def getHomePath():
@@ -100,7 +103,7 @@ def clearCache():
 
 
 def getLogInfo():
-    logName = f"{sysDT.replace(':', '').replace(' ', '_')}_{logID}.log.txt"
+    logName = f"{sysDT}_{logID}.log.txt"
     logFile = f"{getLogPath()}{logName}"
 
     return [logID, logName, logFile, sysDT]
@@ -122,4 +125,40 @@ def quitKill(preserve=False):
     exit()
 
 def dumpHead():
-    IO.say(['Created by: Benevolent0377', f'Version: {IO.yamlRead(f"{getConfigPath()}local.yaml", "Version")}', f'SessionID: {logID}', '===========================================\n\n'], isLoop=True)
+    IO.say(['Created by: Calithos4136', f'Version: {IO.yamlRead(f"{getConfigPath()}local.yaml", "Version")}', f'SessionID: {logID}', '===========================================\n\n'], isLoop=True)
+
+def mkConfig():
+    OS = getOS()
+    slash = getSlash()
+
+    configFileP = f"{getConfigPath()}parent.yaml"
+    configFileL = f"{getConfigPath()}local.yaml"
+    sysPath = getCWD()
+    homePath = getHomePath()
+    logPath = getLogPath()
+
+    web.fetchFTP(configFileP, "parent.yaml")
+
+    if not os.path.isfile(configFileL):
+        if IO.mkFile(configFileL):
+            elements = ["OS", "CWD", "Home-Directory", "Program-SerialNo", "SendLogs", "Version"]
+            values = [OS, sysPath, homePath, extra.keyGen(24), " ", "1.0.0 Alpha"]
+            IO.yamlWrite(values, elements, configFileL, True)
+        else:
+            IO.say("Failed to create local configuration file.")
+            log.log("local.config creation failed.", "err")
+            quitKill()
+
+    log.init(configFileL, logPath)
+
+    sendLogs(configFileL)
+
+def sendLogs(configFileL):
+
+    if IO.yamlRead(configFileL, "SendLogs").__eq__(' '):
+        response = IO.say("Would you like to opt into uploading log data? It IS anonymous. DEFAULT is no. (yes/no)", True, syntaxChk=True, synType="internal")
+        if response.__eq__("yes") or response.__eq__("y"):
+            IO.yamlWrite("True", "SendLogs", configFileL)
+        else:
+            IO.yamlWrite("False", "SendLogs", configFileL)
+        IO.say("Thank you for using source.py!")
