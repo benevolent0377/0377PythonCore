@@ -13,11 +13,7 @@ It requires that you have a directory called source, but you can always move the
 
 In the update directory, there are some updaters, one for project specific libraries, and one for the core files.
 
-Grab whichever you need, place them in the folders 
-      
-      source/update
-
-...inside the root directory of the project, and import them from the parent directory by typing:
+Grab whichever you need, place them in the folders *source/update* inside the root directory of the project, and import them from the parent directory by typing:
 
       from source.update import Ucore, Ulib
 
