@@ -22,7 +22,11 @@ And call their updaters by typing (where they are imported):
       Ucore.get()
       Ulib.get("projectname")
 
+
+**
 The Ulib.get() function will ONLY download libraries from MY projects, and you have to specify, without spaces, the name of the repository in order for it to work.
+**
+
 
 For example, if I wanted to update the libraries for Wanderer, my file would look like this:
 
