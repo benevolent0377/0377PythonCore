@@ -1,6 +1,6 @@
 import socket
 import ftplib
-from . import log, IO
+from source.core import log, IO
 
 def ping(host="8.8.8.8", port=53, timeout=10):
     """
