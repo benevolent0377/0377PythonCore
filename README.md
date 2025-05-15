@@ -1,4 +1,4 @@
-# PyCaliCore
+# 0377Core
 
 #### This is a repository to host all of my core files used in all my python programs.
 
