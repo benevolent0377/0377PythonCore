@@ -2,9 +2,14 @@
 
 #### This is a repository to host all of my core files used in all my python programs.
 
+
 To use these files in your own project, or to install these files in one of my projects, download install.py and run it.
 
 It requires that you have a directory called source, but you can always move the files around.
+
+---
+
+## Using the Updaters
 
 In the update directory, there are some updaters, one for project specific libraries, and one for the core files.
 
