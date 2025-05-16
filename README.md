@@ -47,4 +47,4 @@ That's it.
 
 Create an issue if there are any bugs and don't forget to import the modules in requirements.txt.
 
-There will be a Pypi package exported soon once the updaters have been finished and the core files are reletively complete.
+There will be a Pypi package exported soon once the updaters have been finished and the core files are relatively complete.
