@@ -3,7 +3,14 @@
 #### This is a repository to host all of my core files used in all my python programs.
 
 
-To use these files in your own project, or to install these files in one of my projects, download install.py and run it.
+To use these files in your own project, or to install these files in one of my projects, you have to do a few things:
+
+1. download install.py 
+2. make the folder 'source/update/' for the updaters from the root directory of your program
+      this means you now have a folder called update in a floder called source in your program's root directory
+3. download the Ucore.py and Ulib.py files from this repo
+4. place them in the update folder
+5. run install.py from the root directory of your program
 
 It requires that you have a directory called source, but you can always move the files around.
 
