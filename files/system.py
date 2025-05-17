@@ -103,7 +103,7 @@ def clearCache():
 
 
 def getLogInfo():
-    logName = f"{sysDT}_{logID}.log.txt"
+    logName = f"{sysDT}_{logID}.log.txt".replace(":", "-")
     logFile = f"{getLogPath()}{logName}"
 
     return [logID, logName, logFile, sysDT]
