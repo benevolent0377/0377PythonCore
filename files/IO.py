@@ -219,10 +219,10 @@ def fileRead(File):
     else:
         return []
 
-def fileExists(File, log=True):
+def fileExists(File, logging=True):
         
     exists = os.path.isfile(File)
-    if log:
+    if logging:
         if not exists:
             say("File does not exist.")
             log.log(f"Nonexistent file: {File}", "err")
