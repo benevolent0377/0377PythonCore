@@ -102,13 +102,12 @@ def yamlRead(File, element, update=False, elements=1):
             if update:
                 count = 0
                 while elements > count:
-                    data.update({element: data[element]})
+                    data.update({element[count]: data[element[count]]})
                     count += 1
 
                 return data
             else:
                 return data[element]
-
 
 # write into an element(s) of a json file
 def jsonWrite(value, element, File, isLoop=False):
