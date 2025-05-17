@@ -220,19 +220,21 @@ def fileRead(File):
     else:
         return []
 
-def fileExists(File):
+def fileExists(File, log=True):
         
     exists = os.path.isfile(File)
+    if log:
+        if not exists:
+            say("File does not exist.")
+            log.log(f"Nonexistent file: {File}", "err")
 
-    if not exists:
-        IO.say("File does not exist.")
-        log.log(f"Nonexistent file: {File}", "err")
+    return exists
 
 def checksum(localFile, remoteFile):
 
     match = True
 
-    if fileExists(localFile):
+    if fileExists(localFile, False):
 
         dataArray = fileRead(localFile)
         localData = ""
