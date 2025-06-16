@@ -219,6 +219,14 @@ def fileRead(File):
     else:
         return []
 
+def rmFile(File):
+    try:
+        os.remove(File)
+        return True
+    except:
+        return False
+
+
 def fileExists(File, logging=True):
         
     exists = os.path.isfile(File)
