@@ -64,6 +64,10 @@ def say(output="", isQuestion=False, isLoop=False, syntaxChk=False, synType="", 
 
 # WRITE TO A YAML FILE
 def yamlWrite(value, element, File, isLoop=False):
+    if not isLoop:
+        elementList = [element]
+    else:
+        elementList = element
     data = yamlRead(File, element, True)
     if data is None:
         data = {}
@@ -91,7 +95,7 @@ def yamlWrite(value, element, File, isLoop=False):
 
 
 # read from a yaml file
-def yamlRead(File, element, update=False, elements=1):
+def yamlRead(File, element, update=False):
     with open(File, "r") as file:
         data = yaml.safe_load(file)
         log.log(element, "rfile", File)
@@ -101,7 +105,7 @@ def yamlRead(File, element, update=False, elements=1):
         else:
             if update:
                 count = 0
-                while elements > count:
+                while len(element) > count:
                     data.update({element[count]: data[element[count]]})
                     count += 1
 
