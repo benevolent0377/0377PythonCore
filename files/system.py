@@ -103,7 +103,7 @@ def clearCache():
 
 
 def getLogInfo():
-    logName = f"{sysDT}_{logID}.log.txt"
+    logName = f"{sysDT}_{logID}.log.txt".replace(":", "-")
     logFile = f"{getLogPath()}{logName}"
 
     return [logID, logName, logFile, sysDT]
@@ -125,7 +125,7 @@ def quitKill(preserve=False):
     exit()
 
 def dumpHead():
-    IO.say(['Created by: Calithos4136', f'Version: {IO.yamlRead(f"{getConfigPath()}local.yaml", "Version")}', f'SessionID: {logID}', '===========================================\n\n'], isLoop=True)
+    IO.say(['Created by: Benevolent0377', f'Version: {IO.yamlRead(f"{getConfigPath()}local.yaml", "Version")}', f'SessionID: {logID}', '===========================================\n\n'], isLoop=True)
 
 def mkConfig():
     OS = getOS()

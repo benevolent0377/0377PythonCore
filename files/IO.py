@@ -64,6 +64,10 @@ def say(output="", isQuestion=False, isLoop=False, syntaxChk=False, synType="", 
 
 # WRITE TO A YAML FILE
 def yamlWrite(value, element, File, isLoop=False):
+    if not isLoop:
+        elementList = [element]
+    else:
+        elementList = element
     data = yamlRead(File, element, True)
     if data is None:
         data = {}
@@ -91,7 +95,7 @@ def yamlWrite(value, element, File, isLoop=False):
 
 
 # read from a yaml file
-def yamlRead(File, element, update=False, elements=1):
+def yamlRead(File, element, update=False):
     with open(File, "r") as file:
         data = yaml.safe_load(file)
         log.log(element, "rfile", File)
@@ -101,14 +105,13 @@ def yamlRead(File, element, update=False, elements=1):
         else:
             if update:
                 count = 0
-                while elements > count:
-                    data.update({element: data[element]})
+                while len(element) > count:
+                    data.update({element[count]: data[element[count]]})
                     count += 1
 
                 return data
             else:
                 return data[element]
-
 
 # write into an element(s) of a json file
 def jsonWrite(value, element, File, isLoop=False):
@@ -220,19 +223,29 @@ def fileRead(File):
     else:
         return []
 
-def fileExists(File):
+def rmFile(File):
+    try:
+        os.remove(File)
+        return True
+    except:
+        return False
+
+
+def fileExists(File, logging=True):
         
     exists = os.path.isfile(File)
+    if logging:
+        if not exists:
+            say("File does not exist.")
+            log.log(f"Nonexistent file: {File}", "err")
 
-    if not exists:
-        IO.say("File does not exist.")
-        log.log(f"Nonexistent file: {File}", "err")
+    return exists
 
 def checksum(localFile, remoteFile):
 
     match = True
 
-    if fileExists(localFile):
+    if fileExists(localFile, False):
 
         dataArray = fileRead(localFile)
         localData = ""
