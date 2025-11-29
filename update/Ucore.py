@@ -47,6 +47,13 @@ def update():
             altered = True
 
     return altered
+def exists(File):
+
+    if os.path.isfile(File):
+
+        return True
+
+    return False
 
 def mkFile(File):
     with open(File, "x") as file:
