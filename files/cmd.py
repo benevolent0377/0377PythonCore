@@ -1,4 +1,4 @@
-from source.core import IO, syntax, helper, log, system
+from source.core import IO, syntax, log, system
 
 # a file to parse all commands
 
